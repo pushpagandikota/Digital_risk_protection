@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Risk Protection</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">🛡️ RiskGuard</div>
+    <span class="status">● Demo Mode</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">DIGITAL SECURITY MONITORING</p>
+      <h1>Digital Risk Protection</h1>
+      <p>Identify potential fake profiles, brand impersonation
+        and suspicious mobile applications.</p>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card">
+        <span>Total Scans</span>
+        <h2 id="totalScans">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>High-Risk Demos</span>
+        <h2 id="highRisks">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>Monitored Brand</span>
+        <h2 id="brandCount">0</h2>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>🔍 Scan a Digital Asset</h2>
+      <p class="muted">Enter the details you want to examine.</p>
+
+      <form id="scanForm">
+        <label for="assetType">Asset type</label>
+        <select id="assetType" required>
+          <option value="profile">Social Media Profile</option>
+          <option value="brand">Brand Page</option>
+          <option value="app">Mobile Application</option>
+        </select>
+
+        <label for="brandName">Official brand name</label>
+        <input id="brandName" type="text"
+          placeholder="Example: ABC Company" required>
+
+        <label for="assetName">Profile / Page / App name</label>
+        <input id="assetName" type="text"
+          placeholder="Example: ABC Support Official" required>
+
+        <label for="assetUrl">Profile URL or app listing URL</label>
+        <input id="assetUrl" type="text"
+          placeholder="https://example.com/profile" required>
+
+        <button type="submit" id="scanButton">Analyze Asset</button>
+      </form>
+
+      <p class="hint">
+        Demo only: this tool analyzes entered text and URL patterns.
+        It does not visit or verify the account or app.
+      </p>
+    </section>
+
+    <section id="resultPanel" class="panel hidden"
+      aria-live="polite">
+      <h2>Scan Report</h2>
+      <div class="result-heading">
+        <div>
+          <p class="muted">Estimated demo risk score</p>
+          <h2 id="riskScore">0/100</h2>
+        </div>
+        <span id="riskBadge" class="badge">Not analyzed</span>
+      </div>
+
+      <div class="progress-track">
+        <div id="riskBar" class="progress-bar"></div>
+      </div>
+
+      <h3>Indicators found</h3>
+      <ul id="indicatorList"></ul>
+      <p id="resultNote" class="hint"></p>
+    </section>
+
+    <section class="panel">
+      <div class="history-heading">
+        <h2>Recent Scan History</h2>
+        <button id="clearHistory" class="secondary"
+          type="button">Clear History</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Asset</th>
+              <th>Brand</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr>
+              <td colspan="3">No scans yet. Try a demo scan.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    RiskGuard · Digital Risk Protection Hackathon Demo
+  </footer>
+</body>
+</html>

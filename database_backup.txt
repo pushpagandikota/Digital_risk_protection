@@ -1,0 +1,35 @@
+import sqlite3
+
+DATABASE = "database.db"
+
+# 1. Initialize Database & Create Table
+def init_db():
+    with sqlite3.connect(DATABASE) as conn:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS scans (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                brand TEXT NOT NULL,
+                asset_name TEXT NOT NULL,
+                url TEXT NOT NULL,
+                risk_score INTEGER NOT NULL
+            )
+        """)
+    print("Database and table initialized successfully!")
+
+# 2. Function to Save a Scan Result
+def save_scan(brand, asset_name, url, risk_score):
+    with sqlite3.connect(DATABASE) as conn:
+        conn.execute(
+            "INSERT INTO scans (brand, asset_name, url, risk_score) VALUES (?, ?, ?, ?)",
+            (brand, asset_name, url, risk_score)
+        )
+        conn.commit()
+
+# 3. Function to Get Recent Scans (For your History table)
+def get_recent_scans():
+    with sqlite3.connect(DATABASE) as conn:
+        conn.row_factory = sqlite3.Row  # Allows fetching columns by name
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM scans ORDER BY id DESC LIMIT 10")
+        rows = cursor.fetchall()
+        return [dict(row) for row in rows]

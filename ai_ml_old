@@ -1,0 +1,42 @@
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.pipeline import make_pipeline
+import joblib
+import os
+
+# 1. Sample Training Data (Meeru mee actual dataset data tho replace cheyochu)
+data = {
+    'asset_feature': [
+        'official-amazon-support', 
+        'free-gift-amazon-fake-login', 
+        'amazon-secure-verify-update', 
+        'my-personal-blog',
+        'fake-support-brand-login-page',
+        'safe-official-page'
+    ],
+    'risk_score': [10, 95, 90, 15, 98, 5]  # Risk scores (0 to 100)
+}
+
+df = pd.DataFrame(data)
+
+X = df['asset_feature']
+y = df['risk_score']
+
+# 2. Build Pipeline (Text Vectorization + ML Model)
+# Text data (URLs/Asset names) numbers loki convert cheyadaniki TfidfVectorizer vaduthunnam
+model = make_pipeline(
+    TfidfVectorizer(),
+    RandomForestRegressor(n_estimators=50, random_state=42)
+)
+
+print("AI Model train avtundi...")
+model.fit(X, y)
+print("Training complete aipoindi!")
+
+# 3. Save the trained model in the 'models' folder
+os.makedirs("models", exist_ok=True)
+model_path = os.path.join("models", "brand_name_model.joblib")
+joblib.dump(model, model_path)
+
+print(f"Model successfully saved at: {model_path}")
